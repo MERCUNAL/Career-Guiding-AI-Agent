@@ -1,19 +1,23 @@
-# from typing_extensions import TypedDict
-# from typing import Annotated
-# from langchain_core.messages import AnyMessage
-# from langgraph.graph.message import add_messages
-# from langchain_community.chat_models import ChatOllama
+from typing_extensions import TypedDict
+from typing import Annotated
+from langchain_core.messages import AnyMessage
+from langgraph.graph.message import add_messages
+from langchain_community.chat_models import ChatOllama
+from langchain_groq import ChatGroq
+    
+from dotenv import load_dotenv
+import os
+load_dotenv()
+os.environ["GROQ_API_KEY"] = os.getenv("GROQ_API")
+llm = ChatGroq(model="llama-3.1-8b-instant")
+
+# CODE FOR LLM GENERATING QUESTIONS AND ANSWERING
+#------------------------------------------------
+
 
 # class State(TypedDict):
 #     messages: Annotated[list[AnyMessage], add_messages]
 #     completed: bool
-    
-# from dotenv import load_dotenv
-# import os
-# # load_dotenv()
-# # os.environ["GROQ_API_KEY"] = os.getenv("GROQ_API")
-# # llm = ChatGroq(model="llama-3.1-8b-instant")
-# llm = ChatOllama(model="phi3", temperature=0.7)
 
 # prompt = """You are an AI chatbot assigned to help the user decide their career path.
 # - Ask questions related to CS fields
@@ -45,21 +49,20 @@
 #     return messages, response.content, completed
 
 
-from typing_extensions import TypedDict
-from typing import Annotated
-from langchain_core.messages import AnyMessage
-from langgraph.graph.message import add_messages
-from langchain_community.chat_models import ChatOllama
+# CODE FOR PREDEFINED QUESTIONS AND THE LLM GENERATING FINAL VERDICT ACCORDING TO CHAT HISTORY
+# --------------------------------------------------------------------------------------------
 
 class State(TypedDict):
     messages: Annotated[list[AnyMessage], add_messages]
     completed: bool
     step: int
 
-llm = ChatOllama(
-    model="phi3",   
-    temperature=0.7
-)
+#USE LOCALLY RUN OLLAMA MODEL
+#----------------------------------------
+# llm = ChatOllama(
+#     model="phi3",   
+#     temperature=0.7
+# )
 
 questions = [
     "What aspects of computer science interest you most?",
