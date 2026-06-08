@@ -80,7 +80,3 @@ streamlit run app.py
 5. A final career guidance report and recommendations are generated.
 
 
-
-## License
-
-This project is licensed under the MIT License.
